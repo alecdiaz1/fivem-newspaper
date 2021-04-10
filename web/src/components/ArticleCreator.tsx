@@ -13,7 +13,6 @@ interface ArticleCreatorProps {
 const ArticleCreator = ({onCreateArticle, onUpdateArticle, selectedArticle}: ArticleCreatorProps) => {
   const [title, setTitle] = useState<string>(selectedArticle?.title || '')
   const [body, setBody] = useState<string>(selectedArticle?.body || '')
-  // TODO: Fix id when finish editing article
   const [articleId, setArticleId] = useState<number>(selectedArticle?.id || uuidv4())
 
   useEffect(() => {
