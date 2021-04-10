@@ -5,13 +5,7 @@ author 'Alec Diaz'
 description 'Create and read newspapers'
 version '1.0.0'
 
-client_script {
-  'client/*.lua',
-}
-
-server_script {
-  'server/*.lua'
-}
+client_script "nui.lua"
 
 ui_page 'html/index.html'
 

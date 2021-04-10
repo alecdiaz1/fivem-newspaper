@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Home from './pages/Home'
 import CreateNewspaper from './pages/CreateNewspaper'
 import firebase from 'firebase/app'
@@ -17,24 +17,50 @@ const StyledContainer = styled(Container)`
 `
 
 function App() {
-  return (
-    <StyledContainer maxWidth="md">
-      <CssBaseline />
-      <Router>
-        <Switch>
-          <Route path="/create-newspaper">
-            <CreateNewspaper />
-          </Route>
-          <Route path="/view-newspaper/:id">
-            <ViewNewspaper />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </StyledContainer>
-  )
+  const [visible, _setVisible] = React.useState('');
+  const visibleRef = React.useRef(visible);
+
+  const setVisible = data => {
+    visibleRef.current = data;
+    _setVisible(data)
+  }
+
+  window.addEventListener('message', function(event) {
+    const item = event.data;
+    if (item.type === "ui") {
+      if (item.status === true) {
+        setVisible(true)
+      } else {
+        setVisible(false)
+      }
+    }
+  })  
+
+  if (visible) {
+    return (
+      <StyledContainer 
+        maxWidth="md" 
+        style={{visibility: `${visible ? 'visible' : 'hidden'}`}}
+      >
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Route path="/create-newspaper">
+              <CreateNewspaper />
+            </Route>
+            <Route path="/view-newspaper/:id">
+              <ViewNewspaper />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </StyledContainer>
+    )
+  }
+
+  return (<></>)
 }
 
 export default App
