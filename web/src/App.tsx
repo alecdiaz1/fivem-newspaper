@@ -1,18 +1,33 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
+import Home from './pages/home/Home'
+import CreateNewspaper from './pages/create-newspaper/CreateNewspaper'
+import { FirebaseDatabaseProvider } from '@react-firebase/database'
+import firebase from 'firebase/app'
+import { config } from './firebase-credentials'
 
-// show and hide
-import { useVisibility } from './core/hooks/useVisibility';
-import { useCoreService } from './core/hooks/useCoreService';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import CssBaseline from '@material-ui/core/CssBaseline'
 
 function App() {
-  useCoreService();
-  const visibility = useVisibility()
   return (
-    <div style={ visibility ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-     {/** Any types of components goes here. Maybe some routing? */}
-    </div>
-  );
+    <FirebaseDatabaseProvider firebase={firebase} {...config}>
+      <div className="container">
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Route path="/create-newspaper">
+              <CreateNewspaper />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    </FirebaseDatabaseProvider>
+  )
 }
 
-export default App;
+export default App
+
+// style={ visibility ? { visibility: 'visible' } : { visibility: 'hidden' }}

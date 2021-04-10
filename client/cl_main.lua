@@ -6,4 +6,7 @@ RegisterCommand('show:nui', function(source, args, rawCommand)
     method = "setVisibility",
     data = true
   })
+  TriggerEvent('chat:addMessage', {
+    args = { 'show:nui run!' }
+  })
 end, false)
