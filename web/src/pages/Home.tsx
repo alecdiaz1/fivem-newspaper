@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
-import ArticleListItem from '../../components/ArticleListItem'
+import ArticleListItem from '../components/ArticleListItem'
 
 // show and hide
-import { useVisibility } from '../../core/hooks/useVisibility'
-import { useCoreService } from '../../core/hooks/useCoreService'
+import { useVisibility } from '../core/hooks/useVisibility'
+import { useCoreService } from '../core/hooks/useCoreService'
 import styled from 'styled-components'
 
 const Container = styled.div`

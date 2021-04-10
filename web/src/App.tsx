@@ -1,6 +1,6 @@
 import React from 'react'
-import Home from './pages/home/Home'
-import CreateNewspaper from './pages/create-newspaper/CreateNewspaper'
+import Home from './pages/Home'
+import CreateNewspaper from './pages/CreateNewspaper'
 import { FirebaseDatabaseProvider } from '@react-firebase/database'
 import firebase from 'firebase/app'
 import { config } from './firebase-credentials'
@@ -29,5 +29,3 @@ function App() {
 }
 
 export default App
-
-// style={ visibility ? { visibility: 'visible' } : { visibility: 'hidden' }}
