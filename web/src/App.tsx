@@ -5,7 +5,7 @@ import { FirebaseDatabaseProvider } from '@react-firebase/database'
 import firebase from 'firebase/app'
 import { config } from './firebase-credentials'
 
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import ViewNewspaper from './pages/ViewNewspaper'
 import { Container } from '@material-ui/core'

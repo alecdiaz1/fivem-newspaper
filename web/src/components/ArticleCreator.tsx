@@ -1,15 +1,7 @@
 import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
 
 interface Article {
   title: string
@@ -21,7 +13,6 @@ function ArticleCreator(props: { onSubmit: (article: Article) => void }) {
   const [body, setBody] = useState<string>('')
 
   const onSubmit = () => {
-    console.log('submit')
     props.onSubmit({
       title: title,
       body: body,
