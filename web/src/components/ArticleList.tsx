@@ -1,10 +1,6 @@
 import React from 'react'
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { Divider, Typography } from '@material-ui/core'
+import { Divider, Typography, List, ListItem, ListItemText, IconButton } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 
 interface ArticleListProps {

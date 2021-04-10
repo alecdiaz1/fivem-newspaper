@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
-import Grid from '@material-ui/core/Grid'
-import List from '@material-ui/core/List'
+import { Divider, Typography, Grid, List, Button } from '@material-ui/core'
 import NewspaperListItem from '../components/NewspaperListItem'
 import firebase from 'firebase/app'
 import 'firebase/database'
@@ -10,7 +8,6 @@ import 'firebase/database'
 // show and hide
 import { useVisibility } from '../core/hooks/useVisibility'
 import { useCoreService } from '../core/hooks/useCoreService'
-import { Typography } from '@material-ui/core'
 
 function App() {
   useCoreService()
@@ -37,7 +34,7 @@ function App() {
       }
     })  
   }, [])
-  
+
   return (
     <Grid container spacing={4}>
       <Grid container item alignItems="center">
@@ -52,6 +49,9 @@ function App() {
             </Button>
           </Link>
         </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
       </Grid>
       <Grid container item>
         <Grid item xs={12}>
