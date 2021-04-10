@@ -32,10 +32,12 @@ function App() {
         }
         newspapersToSet.sort((a, b) => -a.created.localeCompare(b.created))
         setNewspapers(newspapersToSet)
+      } else {
+        setNewspapers([])
       }
     })  
   }, [])
-
+  
   return (
     <Grid container spacing={4}>
       <Grid container item alignItems="center">
