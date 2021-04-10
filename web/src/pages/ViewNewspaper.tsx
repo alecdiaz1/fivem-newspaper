@@ -56,6 +56,7 @@ const ViewNewspaper = () => {
             <ArticleList 
               articles={articles} 
               onClickArticle={(article) => setSelectedArticle(article)}
+              selectedArticle={selectedArticle}
             />
           </Grid>
           <Grid container spacing={2} item xs={8} style={{maxHeight:' 100%'}}>
