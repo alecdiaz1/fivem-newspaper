@@ -15,10 +15,13 @@ const StyledLink = styled(Link)`
   }
 `
 
-const ArticleListItem = ({ newspaper }) => (
-  <ListItem divider>
+const ArticleListItem = ({ newspaper }) => {
+  const dateObj = new Date(newspaper.created)
+
+  return (
+    <ListItem divider>
     <StyledLink to="/view-newspaper">
-      <ListItemText primary={`${newspaper.date} - ${newspaper.preview}`} />
+      <ListItemText primary={`${dateObj.toLocaleDateString()} - ${dateObj.toLocaleTimeString()}`} />
     </StyledLink>
     <ListItemSecondaryAction>
       <IconButton edge="end" aria-label="delete">
@@ -26,6 +29,7 @@ const ArticleListItem = ({ newspaper }) => (
       </IconButton>
     </ListItemSecondaryAction>
   </ListItem>
-)
+  )
+}
 
 export default ArticleListItem

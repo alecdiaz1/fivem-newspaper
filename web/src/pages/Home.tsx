@@ -1,19 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
 import NewspaperListItem from '../components/NewspaperListItem'
+import firebase from 'firebase/app'
+import 'firebase/database'
 
 // show and hide
 import { useVisibility } from '../core/hooks/useVisibility'
 import { useCoreService } from '../core/hooks/useCoreService'
 import { Typography } from '@material-ui/core'
-import { SAMPLE_NEWSPAPERS } from './../TEST_NEWSPAPERS';
 
 function App() {
   useCoreService()
+
+  const [newspapers, setNewspapers] = useState([]);
+
   const visibility = useVisibility()
+  const database = firebase.database();
+  const newspapersRef = database.ref('newspapers');
+
+  useEffect(() => {
+    newspapersRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setNewspapers(Object.values(data))
+      }
+    })  
+  }, [])
+
   return (
     <Grid container spacing={4}>
       <Grid container item alignItems="center">
@@ -35,9 +51,12 @@ function App() {
         </Grid>
         <Grid item xs={12}>
           <List>
-            {SAMPLE_NEWSPAPERS.map((newspaper) => (
-              <NewspaperListItem newspaper={newspaper} />
-            ))}
+            {newspapers.length > 0 
+              ? newspapers.map((newspaper) => (
+                <NewspaperListItem newspaper={newspaper} />
+              ))
+              : <Typography variant="body1">No newspapers available</Typography>
+            }
           </List>
         </Grid>
       </Grid>

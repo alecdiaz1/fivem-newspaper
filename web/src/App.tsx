@@ -1,7 +1,6 @@
 import React from 'react'
 import Home from './pages/Home'
 import CreateNewspaper from './pages/CreateNewspaper'
-import { FirebaseDatabaseProvider } from '@react-firebase/database'
 import firebase from 'firebase/app'
 import { config } from './firebase-credentials'
 
@@ -11,30 +10,30 @@ import ViewNewspaper from './pages/ViewNewspaper'
 import { Container } from '@material-ui/core'
 import styled from 'styled-components';
 
+firebase.initializeApp(config);
+
 const StyledContainer = styled(Container)`
   margin-top: 24px;
 `
 
 function App() {
   return (
-    <FirebaseDatabaseProvider firebase={firebase} {...config}>
-      <StyledContainer maxWidth="md">
-        <CssBaseline />
-        <Router>
-          <Switch>
-            <Route path="/create-newspaper">
-              <CreateNewspaper />
-            </Route>
-            <Route path="/view-newspaper">
-              <ViewNewspaper />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </Router>
-      </StyledContainer>
-    </FirebaseDatabaseProvider>
+    <StyledContainer maxWidth="md">
+      <CssBaseline />
+      <Router>
+        <Switch>
+          <Route path="/create-newspaper">
+            <CreateNewspaper />
+          </Route>
+          <Route path="/view-newspaper">
+            <ViewNewspaper />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </StyledContainer>
   )
 }
 
