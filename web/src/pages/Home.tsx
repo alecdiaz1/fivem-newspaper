@@ -8,18 +8,7 @@ import NewspaperListItem from '../components/NewspaperListItem'
 // show and hide
 import { useVisibility } from '../core/hooks/useVisibility'
 import { useCoreService } from '../core/hooks/useCoreService'
-import styled from 'styled-components'
-
-const Container = styled.div`
-  display: grid;
-`
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid black;
-`
+import { Typography } from '@material-ui/core'
 
 const SAMPLE_NEWSPAPERS = [
   {
@@ -58,33 +47,33 @@ function App() {
   useCoreService()
   const visibility = useVisibility()
   return (
-    <Container>
-      <Header>
-        <div>
-          <h1>Los Santos News</h1>
-          <p>Visibility - {visibility.toString()}</p>
-        </div>
-        <Link to="/create-newspaper">
-          <Button variant="contained" color="primary">
-            Create Newspaper
-          </Button>
-        </Link>
-      </Header>
-      <div>
-        <Grid container>
-          <Grid item xs={12}>
-            <h2>Latest Newspapers</h2>
-          </Grid>
-          <Grid item xs={12}>
-            <List>
-              {SAMPLE_NEWSPAPERS.map((newspaper) => (
-                <NewspaperListItem newspaper={newspaper} />
-              ))}
-            </List>
-          </Grid>
+    <Grid container spacing={4}>
+      <Grid container item alignItems="center">
+        <Grid item xs={6}>
+          <Typography variant="h4" component="h1">Los Santos News</Typography>
+          <Typography variant="subtitle2">Visibility - {visibility.toString()}</Typography>
         </Grid>
-      </div>
-    </Container>
+        <Grid container justify="flex-end" item xs={6}>
+          <Link to="/create-newspaper">
+            <Button variant="contained" color="primary">
+              Create Newspaper
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
+      <Grid container item>
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2">Latest Newspapers</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <List>
+            {SAMPLE_NEWSPAPERS.map((newspaper) => (
+              <NewspaperListItem newspaper={newspaper} />
+            ))}
+          </List>
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }
 

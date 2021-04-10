@@ -8,11 +8,17 @@ import { config } from './firebase-credentials'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import ViewNewspaper from './pages/ViewNewspaper'
+import { Container } from '@material-ui/core'
+import styled from 'styled-components';
+
+const StyledContainer = styled(Container)`
+  margin-top: 24px;
+`
 
 function App() {
   return (
     <FirebaseDatabaseProvider firebase={firebase} {...config}>
-      <div className="container">
+      <StyledContainer maxWidth="md">
         <CssBaseline />
         <Router>
           <Switch>
@@ -27,7 +33,7 @@ function App() {
             </Route>
           </Switch>
         </Router>
-      </div>
+      </StyledContainer>
     </FirebaseDatabaseProvider>
   )
 }
