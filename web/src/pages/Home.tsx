@@ -15,7 +15,7 @@ import { Typography } from '@material-ui/core'
 function App() {
   useCoreService()
 
-  const [newspapers, setNewspapers] = useState([]);
+  const [newspapers, setNewspapers] = useState<Newspaper[]>([]);
 
   const visibility = useVisibility()
   const database = firebase.database();
@@ -25,7 +25,12 @@ function App() {
     newspapersRef.on('value', (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setNewspapers(Object.values(data))
+        const fetchedNewspapers = snapshot.val();
+        const newspapersToSet: Newspaper[] = [];
+        for (let id in fetchedNewspapers) {
+          newspapersToSet.push({ id, ...fetchedNewspapers[id] })
+        }
+        setNewspapers(newspapersToSet)
       }
     })  
   }, [])
@@ -52,7 +57,7 @@ function App() {
         <Grid item xs={12}>
           <List>
             {newspapers.length > 0 
-              ? newspapers.map((newspaper) => (
+              ? newspapers.map((newspaper: Newspaper) => (
                 <NewspaperListItem newspaper={newspaper} />
               ))
               : <Typography variant="body1">No newspapers available</Typography>

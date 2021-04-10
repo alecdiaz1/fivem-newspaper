@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import ArticleCreator from '../components/ArticleCreator'

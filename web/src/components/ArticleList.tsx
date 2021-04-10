@@ -10,7 +10,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 interface ArticleListProps {
   articles: Article[];
   onClickArticle: (article: Article) => void;
-  onDeleteArticle: (article: Article) => void;
+  onDeleteArticle?: (article: Article) => void;
   selectedArticle?: Article | null;
 }
 
@@ -31,11 +31,13 @@ const ArticleList = ({articles, onClickArticle, onDeleteArticle, selectedArticle
                 primary={article.title} 
                 secondary={article.body}
               />
-              <ListItemSecondaryAction onClick={() => onDeleteArticle(article)}>
+              { onDeleteArticle && 
+                <ListItemSecondaryAction onClick={() => onDeleteArticle(article)}>
                 <IconButton edge="end" aria-label="delete">
                   <DeleteIcon />
                 </IconButton>
               </ListItemSecondaryAction>
+              }
             </ListItem>
             <Divider />
           </>

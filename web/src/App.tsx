@@ -25,7 +25,7 @@ function App() {
           <Route path="/create-newspaper">
             <CreateNewspaper />
           </Route>
-          <Route path="/view-newspaper">
+          <Route path="/view-newspaper/:id">
             <ViewNewspaper />
           </Route>
           <Route path="/">

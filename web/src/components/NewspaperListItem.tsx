@@ -20,7 +20,7 @@ const ArticleListItem = ({ newspaper }) => {
 
   return (
     <ListItem divider>
-    <StyledLink to="/view-newspaper">
+    <StyledLink to={`/view-newspaper/${newspaper.id}`}>
       <ListItemText primary={`${dateObj.toLocaleDateString()} - ${dateObj.toLocaleTimeString()}`} />
     </StyledLink>
     <ListItemSecondaryAction>
