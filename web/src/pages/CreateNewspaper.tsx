@@ -45,19 +45,23 @@ function CreateNewspaper() {
       <Grid item xs={12}>
         <Divider />
       </Grid>
-      <Grid item xs={4}>
-        <Typography variant="h5" component="h2">Articles</Typography>
-        <ArticleList articles={articles}/>
-      </Grid>
-      <Grid item xs={8}>
-        <ArticleCreator
-          onSubmit={(newArticle: Article) => addNewArticle(newArticle)}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Button disabled={articles.length < 1} variant="contained" color="primary" onClick={() => addNewspaper()}>
-          Add Newspaper
-        </Button>
+      <Grid style={{height: 600}} container item xs={12} spacing={4} alignItems="stretch">
+        <Grid item xs={4} style={{maxHeight: '100%', overflow: 'auto'}}>
+          <Typography variant="h5" component="h2">Articles</Typography>
+          <ArticleList articles={articles}/>
+        </Grid>
+        <Grid container spacing={2} item xs={8} style={{maxHeight:' 100%'}}>
+          <Grid item xs={12}>
+            <ArticleCreator
+              onSubmit={(newArticle: Article) => addNewArticle(newArticle)}
+            />
+          </Grid>
+          <Grid container justify="flex-end" item xs={12} direction="column">
+            <Button disabled={articles.length < 1} variant="contained" color="primary" onClick={() => addNewspaper()}>
+              Add Newspaper
+            </Button>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )

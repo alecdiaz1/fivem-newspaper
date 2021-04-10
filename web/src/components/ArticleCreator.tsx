@@ -13,6 +13,9 @@ function ArticleCreator(props: { onSubmit: (article: Article) => void }) {
   const [body, setBody] = useState<string>('')
 
   const onSubmit = () => {
+    setTitle('');
+    setBody('');
+
     props.onSubmit({
       title: title,
       body: body,
