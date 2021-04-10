@@ -17,7 +17,7 @@ const StyledLink = styled(Link)`
 
 const ArticleListItem = ({ newspaper }) => (
   <ListItem divider>
-    <StyledLink to="/">
+    <StyledLink to="/view-newspaper">
       <ListItemText primary={`${newspaper.date} - ${newspaper.preview}`} />
     </StyledLink>
     <ListItemSecondaryAction>

@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import List from '@material-ui/core/List'
-import ArticleListItem from '../components/ArticleListItem'
+import NewspaperListItem from '../components/NewspaperListItem'
 
 // show and hide
 import { useVisibility } from '../core/hooks/useVisibility'
@@ -19,15 +19,6 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid black;
-`
-
-const NewspaperList = styled.div`
-  display: flex;
-  flex-direction: column;
-  > div {
-    border: 1px solid lightgray;
-    padding: 20px;
-  }
 `
 
 const SAMPLE_NEWSPAPERS = [
@@ -87,7 +78,7 @@ function App() {
           <Grid item xs={12}>
             <List>
               {SAMPLE_NEWSPAPERS.map((newspaper) => (
-                <ArticleListItem newspaper={newspaper} />
+                <NewspaperListItem newspaper={newspaper} />
               ))}
             </List>
           </Grid>
