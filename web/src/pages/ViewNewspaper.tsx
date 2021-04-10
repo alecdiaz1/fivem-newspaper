@@ -31,7 +31,7 @@ const ViewNewspaper = () => {
 
   useEffect(() => {
     setSelectedArticle(articles[0])
-  }, [])
+  }, [articles])
 
   return (
     <Grid container spacing={4}>
