@@ -6,5 +6,6 @@ declare type Article = {
 
 declare type Newspaper = {
   id: string;
+  created: string;
   articles: Article[];
 }

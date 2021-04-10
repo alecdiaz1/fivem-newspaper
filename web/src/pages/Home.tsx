@@ -30,6 +30,7 @@ function App() {
         for (let id in fetchedNewspapers) {
           newspapersToSet.push({ id, ...fetchedNewspapers[id] })
         }
+        newspapersToSet.sort((a, b) => -a.created.localeCompare(b.created))
         setNewspapers(newspapersToSet)
       }
     })  
