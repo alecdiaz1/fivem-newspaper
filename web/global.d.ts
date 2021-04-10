@@ -1,4 +1,5 @@
 declare type Article = {
-  title: string
-  body: string
+  id: uuid;
+  title: string;
+  body: string;
 }

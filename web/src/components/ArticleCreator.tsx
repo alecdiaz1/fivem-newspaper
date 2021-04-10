@@ -1,30 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { Grid, Typography } from '@material-ui/core'
+import { v4 as uuidv4 } from 'uuid';
 
-interface Article {
-  title: string
-  body: string
+interface ArticleCreatorProps {
+  onCreateArticle: (article: Article) => void;
+  onUpdateArticle: (article: Article) => void;
+  selectedArticle: Article | null;
 }
 
-function ArticleCreator(props: { onSubmit: (article: Article) => void }) {
-  const [title, setTitle] = useState<string>('')
-  const [body, setBody] = useState<string>('')
+const ArticleCreator = ({onCreateArticle, onUpdateArticle, selectedArticle}: ArticleCreatorProps) => {
+  const [title, setTitle] = useState<string>(selectedArticle?.title || '')
+  const [body, setBody] = useState<string>(selectedArticle?.body || '')
+  // TODO: Fix id when finish editing article
+  const [articleId, setArticleId] = useState<number>(selectedArticle?.id || uuidv4())
+
+  useEffect(() => {
+    setTitle(selectedArticle?.title || '')
+    setBody(selectedArticle?.body || '')
+    setArticleId(selectedArticle?.id || uuidv4())
+  }, [selectedArticle])
 
   const onSubmit = () => {
     setTitle('');
     setBody('');
+    setArticleId(articleId)
 
-    props.onSubmit({
+    const article = {
+      id: articleId,
       title: title,
       body: body,
-    })
+    }
+
+    if (selectedArticle) {
+      onUpdateArticle(article)
+    } else {
+      onCreateArticle(article)
+    }
   }
 
   return (
     <Grid container direction="column" spacing={2}>
-      <Typography variant="h5" component="h2">Create Article</Typography>
+      <Typography variant="h5" component="h2">{selectedArticle ? "Update Article" : "Add Article"}</Typography>
       <Grid item>
         <TextField
           fullWidth
@@ -58,7 +76,7 @@ function ArticleCreator(props: { onSubmit: (article: Article) => void }) {
           color="primary"
           disabled={title.length < 1 || body.length < 1}
         >
-          Add Article
+          {selectedArticle ? "Update Article" : "Add Article"}
         </Button>
       </Grid>
     </Grid>

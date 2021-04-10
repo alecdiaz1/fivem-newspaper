@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import ArticleCreator from '../components/ArticleCreator'
@@ -10,9 +10,35 @@ import 'firebase/database'
 
 function CreateNewspaper() {
   const [articles, setArticles] = useState<Article[]>([])
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
 
-  const addNewArticle = (newArticle) => {
-    setArticles([...articles, newArticle])
+  const addNewArticle = (newArticle: Article) => {
+    setArticles([...articles, newArticle]);
+  }
+
+  const onClickArticle = (clickedArticle: Article) => {
+    const articleIndex: number = articles.findIndex((article => article.id === clickedArticle.id));
+    const selectedArticleIndex: number = articles.findIndex((article => article.id === selectedArticle?.id));
+
+    if (articleIndex === selectedArticleIndex) {
+      setSelectedArticle(null);
+    } else {
+      setSelectedArticle(clickedArticle);
+    }
+  }
+
+  const updateArticle = (updatedArticle: Article) => {
+    const articleIndex: number = articles.findIndex((article => article.id === updatedArticle.id));
+    const updatedArticles = [...articles];
+    updatedArticles[articleIndex] = updatedArticle;
+    setArticles(updatedArticles);
+    setSelectedArticle(null);
+  }
+
+  const deleteArticle = (articleToDelete: Article) => {
+    const updatedArticles = [...articles].filter(article => article.id !== articleToDelete.id);
+    setArticles(updatedArticles);
+    setSelectedArticle(null);
   }
 
   const newspaperListRef = firebase.database().ref('newspapers');
@@ -20,12 +46,14 @@ function CreateNewspaper() {
 
   const addNewspaper = () => {
     const created = new Date().toISOString();
-    if (articles.length > 0) {
-      newNewspaperRef.set({
-        created: created,
-        articles: articles
-      })
-    }
+    newNewspaperRef.set({
+      created: created,
+      articles: articles
+    })
+
+    setArticles([]);
+    setSelectedArticle(null);
+    alert("Newspaper created!")
   }
 
   return (
@@ -48,12 +76,22 @@ function CreateNewspaper() {
       <Grid style={{height: 600}} container item xs={12} spacing={4} alignItems="stretch">
         <Grid item xs={4} style={{maxHeight: '100%', overflow: 'auto'}}>
           <Typography variant="h5" component="h2">Articles</Typography>
-          <ArticleList articles={articles}/>
+          <ArticleList 
+            articles={articles} 
+            onClickArticle={(article) => onClickArticle(article)}
+            onDeleteArticle={(article) => deleteArticle(article)}
+            selectedArticle={selectedArticle}
+          />
+          { selectedArticle &&
+            <Button onClick={() => setSelectedArticle(null)}>New Article</Button>
+          }
         </Grid>
         <Grid container spacing={2} item xs={8} style={{maxHeight:' 100%'}}>
           <Grid item xs={12}>
             <ArticleCreator
-              onSubmit={(newArticle: Article) => addNewArticle(newArticle)}
+              selectedArticle={selectedArticle}
+              onCreateArticle={(newArticle: Article) => addNewArticle(newArticle)}
+              onUpdateArticle={(updatedArticle: Article) => updateArticle(updatedArticle)}
             />
           </Grid>
           <Grid container justify="flex-end" item xs={12} direction="column">
