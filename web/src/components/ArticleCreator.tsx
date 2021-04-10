@@ -13,7 +13,7 @@ interface ArticleCreatorProps {
 const ArticleCreator = ({onCreateArticle, onUpdateArticle, selectedArticle}: ArticleCreatorProps) => {
   const [title, setTitle] = useState<string>(selectedArticle?.title || '')
   const [body, setBody] = useState<string>(selectedArticle?.body || '')
-  const [articleId, setArticleId] = useState<number>(selectedArticle?.id || uuidv4())
+  const [articleId, setArticleId] = useState<string>(selectedArticle?.id || uuidv4())
 
   useEffect(() => {
     setTitle(selectedArticle?.title || '')
@@ -22,10 +22,6 @@ const ArticleCreator = ({onCreateArticle, onUpdateArticle, selectedArticle}: Art
   }, [selectedArticle])
 
   const onSubmit = () => {
-    setTitle('');
-    setBody('');
-    setArticleId(articleId)
-
     const article = {
       id: articleId,
       title: title,
@@ -37,6 +33,10 @@ const ArticleCreator = ({onCreateArticle, onUpdateArticle, selectedArticle}: Art
     } else {
       onCreateArticle(article)
     }
+
+    setTitle('');
+    setBody('');
+    setArticleId(uuidv4());
   }
 
   return (
