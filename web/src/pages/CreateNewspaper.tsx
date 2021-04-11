@@ -1,14 +1,20 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ArticleCreator from '../components/ArticleCreator'
-import { Divider, Grid, Button, Typography } from '@material-ui/core'
+import { Divider, Grid, Button, Typography, Snackbar } from '@material-ui/core'
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 import ArticleList from '../components/ArticleList'
 import firebase from 'firebase/app'
 import 'firebase/database'
 
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 function CreateNewspaper() {
   const [articles, setArticles] = useState<Article[]>([])
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
+  const [successAlertVisible, setSuccessAlertVisible] = useState(false);
 
   const addNewArticle = (newArticle: Article) => {
     setArticles([...articles, newArticle]);
@@ -51,11 +57,21 @@ function CreateNewspaper() {
 
     setArticles([]);
     setSelectedArticle(null);
-    alert("Newspaper created!")
+    setSuccessAlertVisible(true)  
   }
 
   return (
     <Grid container spacing={4}>
+      <Snackbar 
+        open={successAlertVisible} 
+        autoHideDuration={6000} 
+        onClose={() => setSuccessAlertVisible(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={() => setSuccessAlertVisible(false)} severity="success">
+          Newspaper created!
+        </Alert>
+      </Snackbar>
       <Grid container item xs={12}>
         <Grid item xs={4}>
           <Link to="/">
