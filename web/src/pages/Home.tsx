@@ -5,16 +5,8 @@ import NewspaperListItem from '../components/NewspaperListItem'
 import firebase from 'firebase/app'
 import 'firebase/database'
 
-// show and hide
-import { useVisibility } from '../core/hooks/useVisibility'
-import { useCoreService } from '../core/hooks/useCoreService'
-
 function App() {
-  useCoreService()
-
   const [newspapers, setNewspapers] = useState<Newspaper[]>([]);
-
-  const visibility = useVisibility()
   const database = firebase.database();
   const newspapersRef = database.ref('newspapers');
 
@@ -35,19 +27,32 @@ function App() {
     })  
   }, [])
 
+  const onExit = () => {
+    fetch("https://newspaper/exit", {
+      method: 'POST',
+      body: JSON.stringify({})
+    });
+  }
+
   return (
     <Grid container spacing={4}>
       <Grid container item alignItems="center">
         <Grid item xs={6}>
           <Typography variant="h4" component="h1">Los Santos News</Typography>
-          <Typography variant="subtitle2">Visibility - {visibility.toString()}</Typography>
         </Grid>
         <Grid container justify="flex-end" item xs={6}>
-          <Link to="/create-newspaper">
-            <Button variant="contained" color="primary">
-              Create Newspaper
+          <Grid container justify="flex-end" item xs={6} >
+            <Link to="/create-newspaper">
+              <Button variant="contained" color="primary">
+                Create Newspaper
+              </Button>
+            </Link>
+          </Grid>
+          <Grid container justify="flex-end" item xs={6}>
+            <Button variant="contained" color="primary" onClick={() => onExit()}>
+              Exit
             </Button>
-          </Link>
+          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>

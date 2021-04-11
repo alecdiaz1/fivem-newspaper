@@ -17,7 +17,7 @@ const StyledContainer = styled(Container)`
 `
 
 function App() {
-  const [visible, _setVisible] = React.useState('');
+  const [visible, _setVisible] = React.useState(false);
   const visibleRef = React.useRef(visible);
 
   const setVisible = data => {
@@ -28,20 +28,17 @@ function App() {
   window.addEventListener('message', function(event) {
     const item = event.data;
     if (item.type === "ui") {
-      if (item.status === true) {
+      if (item.status) {
         setVisible(true)
       } else {
         setVisible(false)
       }
     }
-  })  
+  })
 
   if (visible) {
     return (
-      <StyledContainer 
-        maxWidth="md" 
-        style={{visibility: `${visible ? 'visible' : 'hidden'}`}}
-      >
+      <StyledContainer maxWidth="md">
         <CssBaseline />
         <Router>
           <Switch>
